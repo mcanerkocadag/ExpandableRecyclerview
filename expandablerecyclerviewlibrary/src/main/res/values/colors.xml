@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#644182</color>
+    <color name="colorPrimaryDark">#644182</color>
+    <color name="colorAccent">#644182</color>
+    <color name="main_title_text_color">#223350</color>
+    <color name="koyu_beyaz">#E6E4E4</color>
+    <color name="secondaryTextColor">#ffffff</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_hint">#95FFFFFF</color>
+    <color name="white_grey">#DAD9D9</color>
+    <color name="profil_background_color">#E5E5E5</color>
+    <color name="main_create_text_color">#644182</color>
+    <color name="default_text_color_purple">#644182</color>
+    <color name="default_text_color_white">#ffffff</color>
+    <color name="custom_slide_background">#644182</color>
+    <color name="custom_slide_buttons">#644182</color>
+    <color name="slide_header_title_color">#4E4E4E</color>
+    <color name="donthaveanaccount_color">#FFF5F0</color>
+    <color name="login_text_color">#BCBCBC</color>
+    <color name="black">#000000</color>
+    <color name="grey">#0F644182</color>
+    <color name="icon_color">#3B5FE7</color>
+</resources>
