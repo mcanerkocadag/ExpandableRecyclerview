@@ -2,7 +2,7 @@
 
 == MULTİPLE SELECTION FETURE 
 
-==== Kotlin Suppport TAG: 1.0.0
+==== Kotlin Suppport TAG: 1.0.1
 
 === Step 1: Add it in your root build.gradle at the end of repositories:
 
