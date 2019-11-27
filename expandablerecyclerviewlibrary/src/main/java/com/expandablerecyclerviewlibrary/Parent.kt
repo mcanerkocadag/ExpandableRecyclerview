@@ -1,6 +1,7 @@
 package com.expandablerecyclerviewlibrary
 
 class Parent {
+    var uid:String? = null
     var title: String? = null
     var sub_title: String? = null
     var description: String? = null

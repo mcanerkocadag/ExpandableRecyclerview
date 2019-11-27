@@ -22,6 +22,17 @@ class ExpandableRecyclerviewAdapter(ctx: Context) :
         return parents.size
     }
 
+    fun getSelectedParents(): MutableList<Parent> {
+
+        val selectedParents: MutableList<Parent> = mutableListOf()
+        parents.forEach {
+            if(it.isSelected) {
+                selectedParents.add(it)
+            }
+        }
+        return selectedParents
+    }
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) =
         holder.bind(
             parents,
@@ -110,8 +121,7 @@ class ExpandableRecyclerviewAdapter(ctx: Context) :
                 )
             )
 
-            if (parent.isSelected)
-                parentListener.notifySelected(parent)
+            parentListener.notifySelected(parent, adapterPosition)
         }
 
         private fun expanded(arrowUpImgResource: Int?, arrowDownImgResource: Int?) {
@@ -164,17 +174,25 @@ class ExpandableRecyclerviewAdapter(ctx: Context) :
         fun notifySelectedList(selectedList: MutableList<Parent>) {
         }
 
-        fun notifySelected(selectedList: Parent) {
+        fun notifySelected(
+            parent: Parent,
+            parent_position: Int
+        ) {
+        }
+
+        fun notifySelected(
+            parent: Parent
+        ) {
         }
 
         fun onParentClick(
-            position: Int,
+            parent_position: Int,
             parent: Parent
         ) {
         }
 
         fun onParentLongClick(
-            position: Int,
+            parent_position: Int,
             parent: Parent
         ) {
         }

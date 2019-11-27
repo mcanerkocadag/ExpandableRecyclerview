@@ -2,6 +2,8 @@ package com.expandablerecyclerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.expandablerecyclerview.databinding.ActivityMainBinding
 import com.expandablerecyclerviewlibrary.Child
@@ -13,17 +15,53 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.DividerItemDecoration
 
 
-
-
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        const val TAG = "MainActivity"
+    }
+
+    private lateinit var parents: MutableList<Parent>
     private var binding: ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        initValues()
 
-        val parents = mutableListOf<Parent>()
+        val adapter =
+            ExpandableBuilder()
+                .setContext(this)
+                .setData(parents)
+                .createAdapter()
+        adapter.parentListener = object : ExpandableRecyclerviewAdapter.ParentListener {
+            override fun notifySelected(parent: Parent, parent_position: Int) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Parent : " + parent.title + " Position: " + parent_position,
+                    Toast.LENGTH_LONG
+                ).show()
+
+                logMessage(adapter)
+            }
+        }
+        (binding?.recyclerview?.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        binding?.recyclerview?.adapter = adapter
+
+        binding?.recyclerview?.setHasFixedSize(true)
+        binding?.recyclerview?.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                LinearLayoutManager.VERTICAL
+            )
+        )
+
+        binding?.executePendingBindings()
+
+    }
+
+    private fun initValues() {
+        parents = mutableListOf()
         val child1 = Child("child 1")
         val child2 = Child("child 2")
         val child3 = Child("child 3")
@@ -69,41 +107,14 @@ class MainActivity : AppCompatActivity() {
         parents.add(parent3)
         parents.add(parent4)
         parents.add(parent5)
-        parents.add(parent1)
-        parents.add(parent2)
-        parents.add(parent3)
-        parents.add(parent4)
-        parents.add(parent5)
-        parents.add(parent1)
-        parents.add(parent2)
-        parents.add(parent3)
-        parents.add(parent4)
-        parents.add(parent5)
-        parents.add(parent1)
-        parents.add(parent2)
-        parents.add(parent3)
-        parents.add(parent4)
-        parents.add(parent5)
+    }
 
-        val adapter =
-            ExpandableBuilder()
-                .setContext(this)
-                .setData(parents)
-                .createAdapter()
-        adapter.parentListener = object : ExpandableRecyclerviewAdapter.ParentListener {
-            override fun onParentClick(position: Int, parent: Parent) {
-            }
+    private fun logMessage(adapter: ExpandableRecyclerviewAdapter) {
+        Log.i(TAG, "Selected Items : \n")
+        adapter.getSelectedParents().forEach {
 
-            override fun onParentLongClick(position: Int, parent: Parent) {
-            }
+            Log.i(TAG, "Selected Parent : " + it.title + " Selected: " + it.isSelected)
         }
-        (binding?.recyclerview?.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        binding?.recyclerview?.adapter = adapter
-
-        binding?.recyclerview?.setHasFixedSize(true)
-        binding?.recyclerview?.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
-
-        binding?.executePendingBindings()
-
+        Log.i(TAG, "----------------------------")
     }
 }
